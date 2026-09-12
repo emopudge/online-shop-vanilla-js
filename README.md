@@ -30,13 +30,21 @@
 
 
 online-store/
+
 ├── index.html
+
 ├── css/
+
 │   └── style.css
+
 ├── js/
+
 │   └── app.js
+
 ├── images/
+
 │   └── (изображения товаров)
+
 └── README.md
 
 
@@ -56,4 +64,5 @@ git clone https://github.com/emopudge/online-shop-vanilla-js.git
 
 
 Куделенская Эмилия
+
 GitHub: https://github.com/emopudge

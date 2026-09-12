@@ -3,22 +3,97 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Магазин — WEB2026Q27</title>
+    <title>Online Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Spectral:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <header>
-        <h1>Магазин</h1>
+<body data-season="autumn">
+    <section class="hero-banner">
+        <div class="hero-banner-content">
+            <h1>Уютные вещи для дома</h1>
+            <p>Небольшая коллекция предметов, которые делают дом теплее</p>
+        </div>
+    </section>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="#" class="logo">Online Store</a>
+            <nav>
+                <a href="#catalog">Каталог</a>
+                <div class="season-switcher">
+                    <button class="season-btn" data-season="spring" title="Весна">Весна</button>
+                    <button class="season-btn" data-season="summer" title="Лето">Лето</button>
+                    <button class="season-btn" data-season="autumn" title="Осень">Осень</button>
+                    <button class="season-btn" data-season="winter" title="Зима">Зима</button>
+                </div>
+                <button id="open-cart" class="cart-button">Корзина [<span id="cart-count">0</span>]</button>
+            </nav>
+        </div>
     </header>
 
     <main>
-        <p>Здесь будет каталог товаров.</p>
+        <section class="carousel-section">
+            <div class="container">
+                <div class="carousel-wrap">
+                    <button class="carousel-btn" id="carousel-prev" aria-label="Назад">‹</button>
+                    <div class="carousel" id="carousel">
+                        <article class="carousel-item">
+                            <div class="carousel-image c1">1</div>
+                            <h3>Товар 1</h3>
+                            <p>2 500 ₽</p>
+                        </article>
+                        <article class="carousel-item">
+                            <div class="carousel-image c2">2</div>
+                            <h3>Товар 2</h3>
+                            <p>3 200 ₽</p>
+                        </article>
+                        <article class="carousel-item">
+                            <div class="carousel-image c3">3</div>
+                            <h3>Товар 3</h3>
+                            <p>1 800 ₽</p>
+                        </article>
+                        <article class="carousel-item">
+                            <div class="carousel-image c4">4</div>
+                            <h3>Товар 4</h3>
+                            <p>4 100 ₽</p>
+                        </article>
+                        <article class="carousel-item">
+                            <div class="carousel-image c5">5</div>
+                            <h3>Товар 5</h3>
+                            <p>2 900 ₽</p>
+                        </article>
+                    </div>
+                    <button class="carousel-btn" id="carousel-next" aria-label="Вперёд">›</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="catalog" class="catalog container">
+            <h2>Каталог</h2>
+            <p class="placeholder">Здесь скоро появятся карточки товаров.</p>
+        </section>
     </main>
 
-    <footer>
-        <p>© emopudge, 2026</p>
+    <div class="marquee">
+        <div class="marquee-track">
+            <span>Бесплатная доставка от 3000 ₽</span>
+            <span>Новая коллекция уже в каталоге</span>
+            <span>Скидка 10% на первый заказ</span>
+            <span>Бесплатная доставка от 3000 ₽</span>
+            <span>Новая коллекция уже в каталоге</span>
+            <span>Скидка 10% на первый заказ</span>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2026 Online Store. Учебный проект.</p>
+        </div>
     </footer>
 
     <script src="js/app.js"></script>
+    <div class="particles" id="particles"></div>
 </body>
 </html>

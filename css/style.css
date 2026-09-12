@@ -452,7 +452,7 @@ body[data-season="autumn"] .particle {
     background-image: url('../images/particles/leaf-1.png');
 }
 body[data-season="summer"] .particle {
-    background-image: url('../images/particles/rain-1.png');
+    background-image: url('../images/particles/watermelon-1.png');
 }
 body[data-season="winter"] .particle {
     background-image: url('../images/particles/snowflake-2.png');

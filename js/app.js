@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
         particlesContainer.innerHTML = '';
 
         const sizeRange = {
-            summer: [10, 24],
+            summer: [30, 50],
             autumn: [24, 52],
-            winter: [12, 30],
+            winter: [20, 40],
             spring: [20, 44]
         };
 

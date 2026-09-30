@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Store</title>
+    <title>Vibe Corner — уютные вещи для дома</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Spectral:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
 
     <header class="site-header">
         <div class="container header-inner">
-            <a href="#" class="logo">Online Store</a>
+            <a href="#" class="logo">Vibe Corner</a>
             <nav>
                 <a href="#catalog">Каталог</a>
                 <div class="season-switcher">
@@ -36,35 +36,10 @@
     <main>
         <section class="carousel-section">
             <div class="container">
+                <h2 class="carousel-title">Хиты сезона</h2>
                 <div class="carousel-wrap">
                     <button class="carousel-btn" id="carousel-prev" aria-label="Назад">‹</button>
-                    <div class="carousel" id="carousel">
-                        <article class="carousel-item">
-                            <div class="carousel-image c1">1</div>
-                            <h3>Товар 1</h3>
-                            <p>2 500 ₽</p>
-                        </article>
-                        <article class="carousel-item">
-                            <div class="carousel-image c2">2</div>
-                            <h3>Товар 2</h3>
-                            <p>3 200 ₽</p>
-                        </article>
-                        <article class="carousel-item">
-                            <div class="carousel-image c3">3</div>
-                            <h3>Товар 3</h3>
-                            <p>1 800 ₽</p>
-                        </article>
-                        <article class="carousel-item">
-                            <div class="carousel-image c4">4</div>
-                            <h3>Товар 4</h3>
-                            <p>4 100 ₽</p>
-                        </article>
-                        <article class="carousel-item">
-                            <div class="carousel-image c5">5</div>
-                            <h3>Товар 5</h3>
-                            <p>2 900 ₽</p>
-                        </article>
-                    </div>
+                    <div class="carousel" id="carousel"></div>
                     <button class="carousel-btn" id="carousel-next" aria-label="Вперёд">›</button>
                 </div>
             </div>
@@ -72,7 +47,7 @@
 
         <section id="catalog" class="catalog container">
             <h2>Каталог</h2>
-            <p class="placeholder">Здесь скоро появятся карточки товаров.</p>
+            <div class="product-grid" id="product-grid"></div>
         </section>
     </main>
 
@@ -89,7 +64,7 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>© 2026 Online Store. Учебный проект.</p>
+            <p>© 2026 Vibe Corner. Учебный проект.</p>
         </div>
     </footer>
 

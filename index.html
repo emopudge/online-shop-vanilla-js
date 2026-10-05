@@ -28,9 +28,29 @@
     </header>
 
     <main>
+        <section class="filter-section container">
+            <div class="filter">
+                <button class="filter-btn filter-all active" data-season="all">
+                    <span class="filter-icon"></span> Все товары
+                </button>
+                <button class="filter-btn" data-season="spring">
+                    <span class="filter-icon"></span> Весна
+                </button>
+                <button class="filter-btn" data-season="summer">
+                    <span class="filter-icon"></span> Лето
+                </button>
+                <button class="filter-btn" data-season="autumn">
+                    <span class="filter-icon"></span> Осень
+                </button>
+                <button class="filter-btn" data-season="winter">
+                    <span class="filter-icon"></span> Зима
+                </button>
+            </div>
+        </section>
+
         <section class="carousel-section">
             <div class="container">
-                <h2 class="carousel-title">Хиты сезона</h2>
+                <h2 class="section-title">Хиты сезона</h2>
                 <div class="carousel-wrap">
                     <button class="carousel-btn" id="carousel-prev" aria-label="Назад">‹</button>
                     <div class="carousel" id="carousel"></div>
@@ -40,26 +60,7 @@
         </section>
 
         <section id="catalog" class="catalog container">
-            <h2>Каталог</h2>
-
-            <div class="filter">
-            <button class="filter-btn filter-all active" data-season="all">
-                <span class="filter-icon"></span> Все товары
-            </button>
-            <button class="filter-btn" data-season="spring">
-                <span class="filter-icon"></span> Весна
-            </button>
-            <button class="filter-btn" data-season="summer">
-                <span class="filter-icon"></span> Лето
-            </button>
-            <button class="filter-btn" data-season="autumn">
-                <span class="filter-icon"></span> Осень
-            </button>
-            <button class="filter-btn" data-season="winter">
-                <span class="filter-icon"></span> Зима
-            </button>
-        </div>
-
+            <h2 class="section-title">Все товары</h2>
             <div class="product-grid" id="product-grid"></div>
         </section>
     </main>

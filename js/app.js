@@ -35,9 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const carousel = document.getElementById('carousel');
         if (!carousel) return;
 
-        const items = products
-            .filter(p => p.season === season && p.featured)
-            .slice(0, 5);
+        let items;
+        if (season === 'all') {
+            items = products.filter(p => p.featured).slice(0, 5);
+        } else {
+            items = products.filter(p => p.season === season && p.featured).slice(0, 5);
+        }
 
         carousel.innerHTML = items.map(item => `
             <article class="carousel-item">
@@ -87,14 +90,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (season !== 'all') {
             document.body.dataset.season = season;
             localStorage.setItem('store-season', season);
-            renderCarousel(season);
         }
 
         filterButtons.forEach(btn => {
             btn.classList.toggle('active', btn.dataset.season === season);
         });
 
-        renderCatalog(season);
+        if (season === 'all') {
+            renderCarousel('autumn');
+            renderCatalog('all');
+        } else {
+            renderCarousel(season);
+            renderCatalog(season);
+        }
     }
 
     seasonButtons.forEach(btn => {

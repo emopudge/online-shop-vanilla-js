@@ -688,3 +688,26 @@ main, header, footer, .marquee, .hero-banner {
     transform: translateY(-2px);
     box-shadow: 0 8px 22px rgba(139, 58, 92, 0.5);
 }
+
+.filter-section {
+    padding: 40px 0 0;
+    display: flex;
+    justify-content: center;
+}
+
+.section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: var(--text);
+    letter-spacing: -0.5px;
+}
+
+.carousel-section {
+    padding: 40px 0 40px;
+}
+
+.catalog {
+    padding: 20px 0 80px;
+}

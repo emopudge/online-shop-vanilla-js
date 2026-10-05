@@ -303,4 +303,112 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadCart();
     renderCart();
+
+    /*форма заказа*/
+
+    const orderOverlay = document.getElementById('order-overlay');
+    const orderModal = document.getElementById('order-modal');
+    const orderClose = document.getElementById('order-close');
+    const orderForm = document.getElementById('order-form');
+    const orderSuccess = document.getElementById('order-success');
+
+    function openOrder() {
+        if (!cart.length) {
+            return;
+        }
+        orderModal.classList.add('open');
+        orderOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        orderForm.style.display = '';
+        orderSuccess.classList.remove('show');
+        orderForm.reset();
+        clearErrors();
+    }
+
+    function closeOrder() {
+        orderModal.classList.remove('open');
+        orderOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    function clearErrors() {
+        ['name', 'surname', 'address', 'phone'].forEach(f => {
+            const el = document.getElementById('error-' + f);
+            if (el) el.textContent = '';
+        });
+        orderForm.querySelectorAll('input').forEach(inp => {
+            inp.classList.remove('invalid');
+        });
+    }
+
+    function setError(field, message) {
+        const err = document.getElementById('error-' + field);
+        const input = document.getElementById('order-' + field);
+        if (err) err.textContent = message;
+        if (input) input.classList.add('invalid');
+    }
+
+    function validateForm() {
+        clearErrors();
+        let valid = true;
+
+        const name = document.getElementById('order-name').value.trim();
+        const surname = document.getElementById('order-surname').value.trim();
+        const address = document.getElementById('order-address').value.trim();
+        const phone = document.getElementById('order-phone').value.trim();
+
+        if (name.length < 2) {
+            setError('name', 'Введите имя (минимум 2 символа)');
+            valid = false;
+        }
+
+        if (surname.length < 2) {
+            setError('surname', 'Введите фамилию (минимум 2 символа)');
+            valid = false;
+        }
+
+        if (address.length < 5) {
+            setError('address', 'Введите адрес доставки');
+            valid = false;
+        }
+
+        const digits = phone.replace(/\D/g, '');
+        if (digits.length < 10 || digits.length > 15) {
+            setError('phone', 'Введите корректный номер телефона');
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    if (orderForm) {
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (!validateForm()) {
+                return;
+            }
+
+            orderForm.style.display = 'none';
+            orderSuccess.classList.add('show');
+
+            cart = [];
+            saveCart();
+            renderCart();
+
+            setTimeout(() => {
+                closeOrder();
+            }, 3000);
+        });
+    }
+
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            closeCart();
+            openOrder();
+        });
+    }
+
+    if (orderClose) orderClose.addEventListener('click', closeOrder);
+    if (orderOverlay) orderOverlay.addEventListener('click', closeOrder);
 });

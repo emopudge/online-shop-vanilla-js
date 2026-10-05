@@ -8,7 +8,7 @@
 
 https://emopudge.github.io/online-shop-vanilla-js/
 
-###Админ-панель с историей заказов на Вашем устройстве
+### Админ-панель с историей заказов на Вашем устройстве
 
 https://emopudge.github.io/online-shop-vanilla-js/?admin=1
 

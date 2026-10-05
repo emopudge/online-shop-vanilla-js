@@ -129,6 +129,6 @@ cd online-shop-vanilla-js
 
 ## Автор
 
-Куделенская Эмилиz
+Куделенская Эмилия
 
 GitHub: https://github.com/emopudge

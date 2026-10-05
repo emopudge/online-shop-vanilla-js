@@ -87,7 +87,9 @@ body {
         radial-gradient(circle at 15% 10%, var(--glow-1), transparent 45%),
         radial-gradient(circle at 85% 20%, var(--glow-2), transparent 40%),
         radial-gradient(circle at 75% 90%, var(--glow-3), transparent 45%),
-        radial-gradient(circle at 10% 85%, var(--glow-4), transparent 40%);
+        radial-gradient(circle at 10% 85%, var(--glow-4), transparent 40%),
+        radial-gradient(circle at 20% 30%, rgba(0, 0, 0, 0.03) 1px, transparent 1.5px),
+        radial-gradient(circle at 70% 60%, rgba(0, 0, 0, 0.03) 1px, transparent 1.5px);
     background-attachment: fixed;
     color: var(--text);
     line-height: 1.6;
@@ -609,14 +611,12 @@ main, header, footer, .marquee, .hero-banner {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* ---------- Сетка товаров ---------- */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 24px;
 }
 
-/* ---------- Карточка товара ---------- */
 .product-card {
     background: var(--card);
     border: 1px solid var(--border);

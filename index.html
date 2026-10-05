@@ -22,12 +22,6 @@
             <a href="#" class="logo">Vibe Corner</a>
             <nav>
                 <a href="#catalog">Каталог</a>
-                <div class="season-switcher">
-                    <button class="season-btn" data-season="spring" title="Весна">Весна</button>
-                    <button class="season-btn" data-season="summer" title="Лето">Лето</button>
-                    <button class="season-btn" data-season="autumn" title="Осень">Осень</button>
-                    <button class="season-btn" data-season="winter" title="Зима">Зима</button>
-                </div>
                 <button id="open-cart" class="cart-button">Корзина [<span id="cart-count">0</span>]</button>
             </nav>
         </div>
@@ -49,12 +43,22 @@
             <h2>Каталог</h2>
 
             <div class="filter">
-                <button class="filter-btn active" data-season="all">Все</button>
-                <button class="filter-btn" data-season="autumn">Осень</button>
-                <button class="filter-btn" data-season="winter">Зима</button>
-                <button class="filter-btn" data-season="spring">Весна</button>
-                <button class="filter-btn" data-season="summer">Лето</button>
-            </div>
+            <button class="filter-btn filter-all active" data-season="all">
+                <span class="filter-icon"></span> Все товары
+            </button>
+            <button class="filter-btn" data-season="spring">
+                <span class="filter-icon"></span> Весна
+            </button>
+            <button class="filter-btn" data-season="summer">
+                <span class="filter-icon"></span> Лето
+            </button>
+            <button class="filter-btn" data-season="autumn">
+                <span class="filter-icon"></span> Осень
+            </button>
+            <button class="filter-btn" data-season="winter">
+                <span class="filter-icon"></span> Зима
+            </button>
+        </div>
 
             <div class="product-grid" id="product-grid"></div>
         </section>

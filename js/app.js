@@ -50,48 +50,26 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     }
 
-    function renderProducts() {
-        const grid = document.getElementById('product-grid');
-        if (!grid) return;
 
-        grid.innerHTML = products.map(p => `
-            <article class="product-card" data-id="${p.id}">
-                <div class="product-image">
-                    <img src="${p.image}" alt="${p.name}" loading="lazy">
-                </div>
-                <h3>${p.name}</h3>
-                <p class="product-price">${p.price.toLocaleString('ru-RU')} ₽</p>
-                <button class="add-to-cart" data-id="${p.id}">Добавить в корзину</button>
-            </article>
-        `).join('');
-    }
-
-    renderProducts();
 
     const seasonButtons = document.querySelectorAll('.season-btn');
     const savedSeason = localStorage.getItem('store-season') || 'autumn';
     const particlesContainer = document.getElementById('particles');
 
-    function spawnParticles(season) {
+    function spawnParticles() {
         particlesContainer.innerHTML = '';
 
-        const sizeRange = {
-            summer: [30, 50],
-            autumn: [24, 52],
-            winter: [20, 40],
-            spring: [20, 44]
-        };
-
-        const [minSize, maxSize] = sizeRange[season] || [6, 14];
-        const count = 22;
+        const types = ['spring', 'summer', 'autumn', 'winter'];
+        const count = 16;                    
 
         for (let i = 0; i < count; i++) {
             const p = document.createElement('div');
-            p.className = 'particle';
+            const type = types[i % types.length];
+            p.className = 'particle particle-' + type;
 
-            const size = minSize + Math.random() * (maxSize - minSize);
+            const size = 14 + Math.random() * 22;
             const left = Math.random() * 100;
-            const duration = 8 + Math.random() * 12;
+            const duration = 14 + Math.random() * 14;
             const delay = -Math.random() * duration;
 
             p.style.width = size + 'px';
@@ -99,22 +77,24 @@ document.addEventListener('DOMContentLoaded', () => {
             p.style.left = left + 'vw';
             p.style.animationDuration = duration + 's';
             p.style.animationDelay = delay + 's';
-            p.style.opacity = 0.6 + Math.random() * 0.4;
+            p.style.opacity = 0.4 + Math.random() * 0.4;
 
             particlesContainer.appendChild(p);
         }
     }
 
     function setSeason(season) {
-        document.body.dataset.season = season;
-        localStorage.setItem('store-season', season);
+        if (season !== 'all') {
+            document.body.dataset.season = season;
+            localStorage.setItem('store-season', season);
+            renderCarousel(season);
+        }
 
-        seasonButtons.forEach(btn => {
+        filterButtons.forEach(btn => {
             btn.classList.toggle('active', btn.dataset.season === season);
         });
 
-        spawnParticles(season);
-        renderCarousel(season);
+        renderCatalog(season);
     }
 
     seasonButtons.forEach(btn => {
@@ -135,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    setSeason(savedSeason);
 
     const productGrid = document.getElementById('product-grid');
     const filterButtons = document.querySelectorAll('.filter-btn');
@@ -164,12 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     filterButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            filterButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderCatalog(btn.dataset.season);
+            setSeason(btn.dataset.season);
         });
     });
 
-    renderCatalog('all');
+    setSeason(savedSeason);
+    spawnParticles();
 
 });

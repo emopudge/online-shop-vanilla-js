@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 12, name: 'Свеча в кокосе',               price: 1000, season: 'summer', featured: false, image: 'images/summer/coconut.jpg' },
 
         { id: 13, name: 'Настольный биокамин',              price: 4200, season: 'winter', featured: true,  image: 'images/winter/fire.jpg' },
-        { id: 14, name: 'Зимнее кашемировое мыло',             price: 4000,  season: 'winter', featured: true,  image: 'images/winter/cream.jpg' },
+        { id: 14, name: 'Зимнее кашемировое мыло',             price: 1000,  season: 'winter', featured: true,  image: 'images/winter/cream.jpg' },
         { id: 15, name: 'Кружка-пряничный домик',           price: 1500, season: 'winter', featured: false,  image: 'images/winter/mug.jpg' },
         { id: 16, name: 'Свеча-глинтвейн',                price: 2000, season: 'winter', featured: true,  image: 'images/winter/candle.jpg' },
         { id: 17, name: 'Ночник «Маленький принц»',                 price: 4000, season: 'winter', featured: true,  image: 'images/winter/ball.jpg' },

@@ -92,7 +92,6 @@ online-store/
 ```
 git clone https://github.com/emopudge/online-shop-vanilla-js.git
 cd online-shop-vanilla-js
-
 ```
 
 
@@ -130,5 +129,6 @@ cd online-shop-vanilla-js
 
 ## Автор
 
-Куделенская Эмилия
+Куделенская Эмилиz
+
 GitHub: https://github.com/emopudge

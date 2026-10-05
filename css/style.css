@@ -1395,3 +1395,131 @@ body[data-season="all"] .carousel-section {
     .order-success h3 { font-size: 26px; }
     .order-success-icon { font-size: 48px; }
 }
+
+/*админ-панель*/
+
+.admin-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.92);
+    width: 640px;
+    max-width: calc(100vw - 32px);
+    max-height: 85vh;
+    background: var(--card);
+    z-index: 400;
+    border-radius: 22px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.admin-modal.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 26px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+}
+
+.admin-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.admin-close {
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0 8px;
+    transition: color 0.2s;
+}
+
+.admin-close:hover {
+    color: var(--accent-2);
+}
+
+.admin-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 26px;
+}
+
+.admin-empty {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 40px 0;
+}
+
+.admin-order {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 14px;
+    background: var(--bg);
+}
+
+.admin-order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    font-family: 'Spectral', serif;
+}
+
+.admin-order-id {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent-1);
+}
+
+.admin-order-date {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.admin-order-client {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    color: var(--text);
+}
+
+.admin-order-items {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.admin-order-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+    color: var(--text-muted);
+}
+
+.admin-order-total {
+    text-align: right;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+    font-size: 15px;
+    color: var(--text);
+}

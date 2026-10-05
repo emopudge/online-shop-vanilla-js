@@ -389,6 +389,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            const order = {
+                id: Date.now(),
+                date: new Date().toLocaleString('ru-RU'),
+                name: document.getElementById('order-name').value.trim(),
+                surname: document.getElementById('order-surname').value.trim(),
+                address: document.getElementById('order-address').value.trim(),
+                phone: document.getElementById('order-phone').value.trim(),
+                items: cart.map(item => {
+                    const p = products.find(x => x.id === item.id);
+                    return {
+                        name: p.name,
+                        price: p.price,
+                        quantity: item.quantity,
+                        sum: p.price * item.quantity
+                    };
+                }),
+                total: cart.reduce((acc, item) => {
+                    const p = products.find(x => x.id === item.id);
+                    return acc + p.price * item.quantity;
+                }, 0)
+            };
+
+            const ORDERS_KEY = 'store-orders';
+            const orders = JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]');
+            orders.push(order);
+            localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
+
             orderForm.style.display = 'none';
             orderSuccess.classList.add('show');
 
@@ -411,4 +438,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (orderClose) orderClose.addEventListener('click', closeOrder);
     if (orderOverlay) orderOverlay.addEventListener('click', closeOrder);
+
+    /*админ-панель*/
+
+    const adminModal = document.getElementById('admin-modal');
+    const adminClose = document.getElementById('admin-close');
+    const adminBody = document.getElementById('admin-body');
+
+    function renderAdmin() {
+        const orders = JSON.parse(localStorage.getItem('store-orders') || '[]');
+
+        if (!orders.length) {
+            adminBody.innerHTML = '<p class="admin-empty">Заказов пока нет</p>';
+            return;
+        }
+
+        adminBody.innerHTML = orders.reverse().map(o => `
+            <div class="admin-order">
+                <div class="admin-order-header">
+                    <span class="admin-order-id">Заказ №${o.id}</span>
+                    <span class="admin-order-date">${o.date}</span>
+                </div>
+                <div class="admin-order-client">
+                    <strong>${o.surname} ${o.name}</strong><br>
+                    ${o.phone}<br>
+                    ${o.address}
+                </div>
+                <div class="admin-order-items">
+                    ${o.items.map(it => `
+                        <div class="admin-order-line">
+                            <span>${it.name} × ${it.quantity}</span>
+                            <span>${it.sum.toLocaleString('ru-RU')} ₽</span>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="admin-order-total">
+                    Итого: <strong>${o.total.toLocaleString('ru-RU')} ₽</strong>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function openAdmin() {
+        renderAdmin();
+        adminModal.classList.add('open');
+    }
+
+    if (adminClose) {
+        adminClose.addEventListener('click', () => {
+            adminModal.classList.remove('open');
+        });
+    }
+
+    /* открытие админки по ?admin=1 в адресе */
+    if (location.search.includes('admin=1')) {
+        openAdmin();
+    }
 });

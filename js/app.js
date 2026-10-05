@@ -23,11 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 18, name: 'Постельное белье "Шерстка оленя"',              price: 3500, season: 'winter', featured: true, image: 'images/winter/deer.png' },
 
         { id: 19, name: 'Кружка-гриб',         price: 1500, season: 'autumn', featured: true,  image: 'images/autumn/cup.jpg' },
-        { id: 20, name: 'Стакан цветной',              price: 550,  season: 'autumn', featured: true,  image: 'images/autumn/glass.jpg' },
-        { id: 21, name: 'Ваза для ягод',               price: 2100, season: 'autumn', featured: true,  image: 'images/autumn/vase.jpg' },
-        { id: 22, name: 'Салфетка в горох',            price: 600,  season: 'autumn', featured: true,  image: 'images/autumn/napkin.jpg' },
-        { id: 23, name: 'Поднос деревянный',           price: 2600, season: 'autumn', featured: true,  image: 'images/autumn/tray.jpg' },
-        { id: 24, name: 'Подушка яркая',               price: 1500, season: 'autumn', featured: false, image: 'images/autumn/pillow.jpg' },
+        { id: 21, name: 'Свеча «Тыквенный латте»',               price: 1100, season: 'autumn', featured: true,  image: 'images/autumn/candle.png' },
+        { id: 22, name: 'Котелок-тыква',            price: 5000,  season: 'autumn', featured: true,  image: 'images/autumn/pot.png' },
+        { id: 23, name: 'Пушистые тапочки Снупи',           price: 2600, season: 'autumn', featured: true,  image: 'images/autumn/slippers.png' },
+        { id: 24, name: 'Мыло Cozy Autumn',               price: 500, season: 'autumn', featured: true, image: 'images/autumn/soap.png' },
+        { id: 20, name: 'Плюшевая подушка-тыква',              price: 2000,  season: 'autumn', featured: false,  image: 'images/autumn/pillow.png' },
+
     ];
 
     function renderCarousel(season) {
@@ -135,4 +136,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     setSeason(savedSeason);
+
+    const productGrid = document.getElementById('product-grid');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    function renderCatalog(season) {
+        const list = season === 'all'
+            ? products
+            : products.filter(p => p.season === season);
+
+        productGrid.innerHTML = '';
+
+        list.forEach(p => {
+            const card = document.createElement('article');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div class="product-image">
+                    <img src="${p.image}" alt="${p.name}">
+                </div>
+                <h3>${p.name}</h3>
+                <p class="product-price">${p.price.toLocaleString('ru-RU')} ₽</p>
+                <button class="product-btn" data-id="${p.id}">Добавить в корзину</button>
+            `;
+            productGrid.appendChild(card);
+        });
+    }
+
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderCatalog(btn.dataset.season);
+        });
+    });
+
+    renderCatalog('all');
+
 });

@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const seasonButtons = document.querySelectorAll('.season-btn');
-    const savedSeason = localStorage.getItem('store-season') || 'autumn';
+    const savedSeason = localStorage.getItem('store-season') || 'all';
     const particlesContainer = document.getElementById('particles');
 
     function spawnParticles(season) {
@@ -97,9 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function setSeason(season) {
         document.body.dataset.season = season;
 
-        if (season !== 'all') {
-            localStorage.setItem('store-season', season);
-        }
+        localStorage.setItem('store-season', season);
 
         filterButtons.forEach(btn => {
             btn.classList.toggle('active', btn.dataset.season === season);
@@ -166,4 +164,143 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setSeason(savedSeason);
 
+
+    /*корзина */
+
+    const CART_KEY = 'store-cart';
+
+    let cart = [];
+
+    const cartPanel = document.getElementById('cart-panel');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const cartClose = document.getElementById('cart-close');
+    const cartItemsBox = document.getElementById('cart-items');
+    const cartTotalEl = document.getElementById('cart-total');
+    const cartCountEl = document.getElementById('cart-count');
+    const openCartBtn = document.getElementById('open-cart');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    function loadCart() {
+        try {
+            const raw = localStorage.getItem(CART_KEY);
+            cart = raw ? JSON.parse(raw) : [];
+        } catch (e) {
+            cart = [];
+        }
+    }
+
+    function saveCart() {
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+
+    function addToCart(id) {
+        const item = cart.find(x => x.id === id);
+        if (item) {
+            item.quantity += 1;
+        } else {
+            cart.push({ id: id, quantity: 1 });
+        }
+        saveCart();
+        renderCart();
+        if (cartCountEl) {
+            cartCountEl.parentElement.classList.remove('pulse');
+            void cartCountEl.parentElement.offsetWidth;  
+            cartCountEl.parentElement.classList.add('pulse');
+    }
+    }
+
+    function removeFromCart(id) {
+        cart = cart.filter(x => x.id !== id);
+        saveCart();
+        renderCart();
+    }
+
+    function changeQuantity(id, delta) {
+        const item = cart.find(x => x.id === id);
+        if (!item) return;
+        item.quantity += delta;
+        if (item.quantity <= 0) {
+            removeFromCart(id);
+            return;
+        }
+        saveCart();
+        renderCart();
+    }
+
+    function renderCart() {
+        if (!cart.length) {
+            cartItemsBox.innerHTML = '<p class="cart-empty">Корзина пуста</p>';
+            cartTotalEl.textContent = '0';
+            cartCountEl.textContent = '0';
+            return;
+        }
+
+        let total = 0;
+        let count = 0;
+
+        cartItemsBox.innerHTML = cart.map(item => {
+            const product = products.find(p => p.id === item.id);
+            if (!product) return '';
+
+            const sum = product.price * item.quantity;
+            total += sum;
+            count += item.quantity;
+
+            return `
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <img src="${product.image}" alt="${product.name}">
+                    </div>
+                    <div class="cart-item-info">
+                        <h4>${product.name}</h4>
+                        <p class="cart-item-price">${product.price.toLocaleString('ru-RU')} ₽</p>
+                        <div class="cart-item-controls">
+                            <button class="qty-btn" data-action="minus" data-id="${product.id}">−</button>
+                            <span class="qty-value">${item.quantity}</span>
+                            <button class="qty-btn" data-action="plus" data-id="${product.id}">+</button>
+                            <button class="remove-btn" data-action="remove" data-id="${product.id}">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        cartTotalEl.textContent = total.toLocaleString('ru-RU');
+        cartCountEl.textContent = count;
+    }
+
+    function openCart() {
+        cartPanel.classList.add('open');
+        cartOverlay.classList.add('open');
+    }
+
+    function closeCart() {
+        cartPanel.classList.remove('open');
+        cartOverlay.classList.remove('open');
+    }
+
+    if (openCartBtn) openCartBtn.addEventListener('click', openCart);
+    if (cartClose) cartClose.addEventListener('click', closeCart);
+    if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
+
+    document.addEventListener('click', (e) => {
+        const addBtn = e.target.closest('.product-btn');
+        if (addBtn) {
+            const id = Number(addBtn.dataset.id);
+            addToCart(id);
+            return;
+        }
+
+        const actionBtn = e.target.closest('[data-action]');
+        if (actionBtn && actionBtn.closest('#cart-items')) {
+            const id = Number(actionBtn.dataset.id);
+            const action = actionBtn.dataset.action;
+            if (action === 'plus') changeQuantity(id, 1);
+            if (action === 'minus') changeQuantity(id, -1);
+            if (action === 'remove') removeFromCart(id);
+        }
+    });
+
+    loadCart();
+    renderCart();
 });

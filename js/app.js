@@ -59,11 +59,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedSeason = localStorage.getItem('store-season') || 'autumn';
     const particlesContainer = document.getElementById('particles');
 
-    function spawnParticles() {
+    function spawnParticles(season) {
         particlesContainer.innerHTML = '';
 
-        const types = ['spring', 'summer', 'autumn', 'winter'];
-        const count = 16;                    
+        const allTypes = ['spring', 'summer', 'autumn', 'winter'];
+
+        let types, count;
+        if (season === 'all') {
+            types = allTypes;
+            count = 20;                    
+        } else {
+            types = [season];
+            count = 14;                   
+        }
 
         for (let i = 0; i < count; i++) {
             const p = document.createElement('div');
@@ -80,24 +88,25 @@ document.addEventListener('DOMContentLoaded', () => {
             p.style.left = left + 'vw';
             p.style.animationDuration = duration + 's';
             p.style.animationDelay = delay + 's';
-            p.style.opacity = 0.4 + Math.random() * 0.4;
+            p.style.opacity = 0.35 + Math.random() * 0.35;
 
             particlesContainer.appendChild(p);
         }
     }
 
     function setSeason(season) {
+        document.body.dataset.season = season;
+
         if (season !== 'all') {
-            document.body.dataset.season = season;
             localStorage.setItem('store-season', season);
         }
 
         filterButtons.forEach(btn => {
             btn.classList.toggle('active', btn.dataset.season === season);
         });
+        spawnParticles(season);
 
         if (season === 'all') {
-            renderCarousel('autumn');
             renderCatalog('all');
         } else {
             renderCarousel(season);
@@ -156,6 +165,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     setSeason(savedSeason);
-    spawnParticles();
 
 });

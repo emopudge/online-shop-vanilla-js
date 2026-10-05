@@ -80,6 +80,24 @@ body[data-season="spring"] {
     --glow-4: rgba(138, 90, 106, 0.15);
 }
 
+body[data-season="all"] {
+    --bg: #d8d2e8;              
+    --bg-deep: #c0b8d4;
+    --card: #eae4f4;
+    --text: #261a3a;           
+    --text-muted: #65588a;
+    --border: #b8aed4;
+    --accent-1: #7a5cb8;      
+    --accent-2: #d977a8;        
+    --accent-3: #2a1a4a;      
+    --gradient: linear-gradient(135deg, #a488e8 0%, #7a5cb8 55%, #2a1a4a 100%);
+    --shadow: 0 8px 32px rgba(42, 26, 74, 0.22);
+    --glow-1: rgba(164, 136, 232, 0.28);
+    --glow-2: rgba(217, 119, 168, 0.20);
+    --glow-3: rgba(122, 92, 184, 0.22);
+    --glow-4: rgba(42, 26, 74, 0.16);
+}
+
 body {
     font-family: 'Spectral', Georgia, serif;
     background-color: var(--bg);
@@ -143,6 +161,10 @@ body[data-season="winter"] .hero-banner {
 
 body[data-season="spring"] .hero-banner {
     background-image: url('../images/banners/banner-spring.jpg');
+}
+
+body[data-season="all"] .hero-banner {
+    background-image: url('../images/banners/banner-all2.jpg');
 }
 
 .hero-banner::before {
@@ -468,6 +490,18 @@ body[data-season="winter"] .particle {
 body[data-season="spring"] .particle {
     background-image: url('../images/particles/petal-1.png');
 }
+body[data-season="all"] .particle-spring {
+    background-image: url('../images/particles/petal-1.png');
+}
+body[data-season="all"] .particle-summer {
+    background-image: url('../images/particles/watermelon-1.png');
+}
+body[data-season="all"] .particle-autumn {
+    background-image: url('../images/particles/leaf-1.png');
+}
+body[data-season="all"] .particle-winter {
+    background-image: url('../images/particles/snowflake-2.png');
+}
 
 main, header, footer, .marquee, .hero-banner {
     position: relative;
@@ -710,4 +744,44 @@ main, header, footer, .marquee, .hero-banner {
 
 .catalog {
     padding: 20px 0 80px;
+}
+
+.filter-icon {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 15px;
+    line-height: 1;
+    opacity: 0.85;
+}
+
+.filter-btn.active .filter-icon {
+    opacity: 1;
+}
+
+.filter-all {
+    border: 1.5px dashed var(--accent-2);
+    color: var(--accent-2);
+    font-weight: 600;
+}
+
+.filter-all:hover {
+    background: rgba(217, 138, 42, 0.1);
+    border-style: solid;
+    color: var(--accent-1);
+}
+
+.filter-all.active {
+    background: linear-gradient(135deg, #a488e8 0%, #7a5cb8 50%, #d977a8 100%);
+    color: #f4e8d0;
+    border-color: transparent;
+    border-style: solid;
+    box-shadow: 0 4px 14px rgba(122, 92, 184, 0.45);
+}
+
+.filter-all.active .filter-icon {
+    opacity: 1;
+}
+
+body[data-season="all"] .carousel-section {
+    display: none;
 }

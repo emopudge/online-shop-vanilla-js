@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+    function escapeHtml(str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
 
     const products = [
         { id: 1,  name: 'Винтажный светильник-цветок', price: 1900, season: 'spring', featured: true,  image: 'images/spring/lamps.png' },
@@ -23,12 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 18, name: 'Постельное белье "Шерстка оленя"',              price: 3500, season: 'winter', featured: true, image: 'images/winter/deer.png' },
 
         { id: 19, name: 'Кружка-гриб',         price: 1500, season: 'autumn', featured: true,  image: 'images/autumn/cup.jpg' },
+        { id: 20, name: 'Плюшевая подушка-тыква',              price: 2000,  season: 'autumn', featured: false,  image: 'images/autumn/pillow.png' },
         { id: 21, name: 'Свеча «Тыквенный латте»',               price: 1100, season: 'autumn', featured: true,  image: 'images/autumn/candle.png' },
         { id: 22, name: 'Котелок-тыква',            price: 5000,  season: 'autumn', featured: true,  image: 'images/autumn/pot.png' },
         { id: 23, name: 'Пушистые тапочки Снупи',           price: 2600, season: 'autumn', featured: true,  image: 'images/autumn/slippers.png' },
         { id: 24, name: 'Мыло Cozy Autumn',               price: 500, season: 'autumn', featured: true, image: 'images/autumn/soap.png' },
-        { id: 20, name: 'Плюшевая подушка-тыква',              price: 2000,  season: 'autumn', featured: false,  image: 'images/autumn/pillow.png' },
-
     ];
 
     function renderCarousel(season) {
@@ -55,9 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    const seasonButtons = document.querySelectorAll('.season-btn');
     const savedSeason = localStorage.getItem('store-season') || 'all';
     const particlesContainer = document.getElementById('particles');
+    
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
 
     function spawnParticles(season) {
         particlesContainer.innerHTML = '';
@@ -112,10 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    seasonButtons.forEach(btn => {
-        btn.addEventListener('click', () => setSeason(btn.dataset.season));
-    });
-
     const carousel = document.getElementById('carousel');
     const prevBtn = document.getElementById('carousel-prev');
     const nextBtn = document.getElementById('carousel-next');
@@ -132,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const productGrid = document.getElementById('product-grid');
-    const filterButtons = document.querySelectorAll('.filter-btn');
 
     function renderCatalog(season) {
         const list = season === 'all'
@@ -206,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cartCountEl.parentElement.classList.remove('pulse');
             void cartCountEl.parentElement.offsetWidth;  
             cartCountEl.parentElement.classList.add('pulse');
-    }
+        }
     }
 
     function removeFromCart(id) {
@@ -232,8 +236,11 @@ document.addEventListener('DOMContentLoaded', () => {
             cartItemsBox.innerHTML = '<p class="cart-empty">Корзина пуста</p>';
             cartTotalEl.textContent = '0';
             cartCountEl.textContent = '0';
+            checkoutBtn.style.display = 'none';
             return;
         }
+
+        checkoutBtn.style.display = '';  
 
         let total = 0;
         let count = 0;
@@ -388,6 +395,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!validateForm()) {
                 return;
             }
+            
+            const items = cart.map(item => {
+                const p = products.find(x => x.id === item.id);
+                return {
+                    name: p.name,
+                    price: p.price,
+                    quantity: item.quantity,
+                    sum: p.price * item.quantity
+                };
+            });
+
+            const total = items.reduce((acc, it) => acc + it.sum, 0);
 
             const order = {
                 id: Date.now(),
@@ -396,19 +415,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 surname: document.getElementById('order-surname').value.trim(),
                 address: document.getElementById('order-address').value.trim(),
                 phone: document.getElementById('order-phone').value.trim(),
-                items: cart.map(item => {
-                    const p = products.find(x => x.id === item.id);
-                    return {
-                        name: p.name,
-                        price: p.price,
-                        quantity: item.quantity,
-                        sum: p.price * item.quantity
-                    };
-                }),
-                total: cart.reduce((acc, item) => {
-                    const p = products.find(x => x.id === item.id);
-                    return acc + p.price * item.quantity;
-                }, 0)
+                items: items,
+                total: total,
             };
 
             const ORDERS_KEY = 'store-orders';
@@ -453,21 +461,21 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        adminBody.innerHTML = orders.reverse().map(o => `
+        adminBody.innerHTML = orders.slice().reverse().map(o => `
             <div class="admin-order">
                 <div class="admin-order-header">
                     <span class="admin-order-id">Заказ №${o.id}</span>
-                    <span class="admin-order-date">${o.date}</span>
+                    <span class="admin-order-date">${escapeHtml(o.date)}</span>
                 </div>
                 <div class="admin-order-client">
-                    <strong>${o.surname} ${o.name}</strong><br>
-                    ${o.phone}<br>
-                    ${o.address}
+                    <strong>${escapeHtml(o.surname)} ${escapeHtml(o.name)}</strong><br>
+                    ${escapeHtml(o.phone)}<br>
+                    ${escapeHtml(o.address)}
                 </div>
                 <div class="admin-order-items">
                     ${o.items.map(it => `
                         <div class="admin-order-line">
-                            <span>${it.name} × ${it.quantity}</span>
+                            <span>${escapeHtml(it.name)} × ${it.quantity}</span>
                             <span>${it.sum.toLocaleString('ru-RU')} ₽</span>
                         </div>
                     `).join('')}

@@ -7,7 +7,7 @@
 :root {
     --radius: 16px;
 }
-
+/*темы сезонов*/
 body[data-season="autumn"] {
     --bg: #d4bd9c;
     --bg-deep: #c9ae88;
@@ -97,7 +97,7 @@ body[data-season="all"] {
     --glow-3: rgba(122, 92, 184, 0.22);
     --glow-4: rgba(42, 26, 74, 0.16);
 }
-
+/*базовые стили*/
 body {
     font-family: 'Spectral', Georgia, serif;
     background-color: var(--bg);
@@ -128,13 +128,13 @@ h2 { font-size: 42px; margin-bottom: 24px; }
 h3 { font-size: 22px; }
 
 a { color: inherit; text-decoration: none; }
-
+/*класс контейнер: ширина и центрирование*/
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
 }
-
+/*фоновые картинки по сезонам*/
 .hero-banner {
     position: relative;
     height: 420px;
@@ -166,7 +166,7 @@ body[data-season="spring"] .hero-banner {
 body[data-season="all"] .hero-banner {
     background-image: url('../images/banners/banner-all2.jpg');
 }
-
+/*шапка*/
 .hero-banner::before {
     content: '';
     position: absolute;
@@ -266,7 +266,7 @@ nav a:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 26px rgba(139, 58, 92, 0.55);
 }
-
+/*карусель*/
 .carousel-section {
     padding: 60px 0 60px;
 }
@@ -371,7 +371,7 @@ nav a:hover {
     color: #f4e8d0;
     border-color: transparent;
 }
-
+/*бегущая строка*/
 .catalog {
     padding: 20px 0 60px;
 }
@@ -410,7 +410,7 @@ nav a:hover {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
 }
-
+/*подвал*/
 .site-footer {
     padding: 28px 0;
     text-align: center;
@@ -421,37 +421,7 @@ nav a:hover {
     background: var(--bg-deep);
 }
 
-.season-switcher {
-    display: flex;
-    gap: 6px;
-    background: rgba(0, 0, 0, 0.06);
-    padding: 4px;
-    border-radius: 999px;
-}
-
-.season-btn {
-    background: transparent;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 999px;
-    font-family: 'Spectral', serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s;
-}
-
-.season-btn:hover {
-    color: var(--text);
-}
-
-.season-btn.active {
-    background: var(--gradient);
-    color: #f4e8d0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
+/*падающие частицы*/
 .particles {
     position: fixed;
     inset: 0;
@@ -502,12 +472,12 @@ body[data-season="all"] .particle-autumn {
 body[data-season="all"] .particle-winter {
     background-image: url('../images/particles/snowflake-2.png');
 }
-
+/*z-index: порядок слоев*/
 main, header, footer, .marquee, .hero-banner {
     position: relative;
     z-index: 1;
 }
-
+/*карточки товаров*/
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -551,65 +521,7 @@ main, header, footer, .marquee, .hero-banner {
     transform: scale(1.06);
 }
 
-.product-card h3 {
-    font-size: 20px;
-    margin-bottom: 6px;
-}
-
-.product-price {
-    color: var(--accent-2);
-    font-weight: 600;
-    font-size: 18px;
-    margin-bottom: 14px;
-}
-
-.add-to-cart {
-    margin-top: auto;
-    background: var(--gradient);
-    color: #f4e8d0;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 999px;
-    font-family: 'Spectral', serif;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    box-shadow: 0 4px 18px rgba(139, 58, 92, 0.35);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.add-to-cart:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 26px rgba(139, 58, 92, 0.5);
-}
-
-.add-to-cart:active {
-    transform: translateY(0);
-}
-
-.carousel-title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 38px;
-    font-weight: 600;
-    font-style: italic;
-    margin-bottom: 8px;
-    text-align: center;
-    letter-spacing: -0.3px;
-}
-
-.carousel-title::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 2px;
-    margin: 12px auto 0;
-    background: var(--gradient);
-    border-radius: 2px;
-}
-
-.carousel-section {
-    padding: 40px 0 60px;  
-}
+/*фильтры*/
 
 .filter {
     display: flex;
@@ -643,48 +555,6 @@ main, header, footer, .marquee, .hero-banner {
     background: var(--gradient);
     color: #f4e8d0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 24px;
-}
-
-.product-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    box-shadow: var(--shadow);
-    transition: transform 0.3s, box-shadow 0.3s;
-    display: flex;
-    flex-direction: column;
-}
-
-.product-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 44px rgba(74, 50, 20, 0.28);
-}
-
-.product-image {
-    width: 100%;
-    height: 200px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: var(--bg-deep);
-    margin-bottom: 14px;
-}
-
-.product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s;
-}
-
-.product-card:hover .product-image img {
-    transform: scale(1.06);
 }
 
 .product-card h3 {
@@ -738,25 +608,7 @@ main, header, footer, .marquee, .hero-banner {
     letter-spacing: -0.5px;
 }
 
-.carousel-section {
-    padding: 40px 0 40px;
-}
-
-.catalog {
-    padding: 20px 0 80px;
-}
-
-.filter-icon {
-    display: inline-block;
-    margin-right: 6px;
-    font-size: 15px;
-    line-height: 1;
-    opacity: 0.85;
-}
-
-.filter-btn.active .filter-icon {
-    opacity: 1;
-}
+/*стили для иконок*/
 
 .filter-all {
     border: 1.5px dashed var(--accent-2);
@@ -776,10 +628,6 @@ main, header, footer, .marquee, .hero-banner {
     border-color: transparent;
     border-style: solid;
     box-shadow: 0 4px 14px rgba(122, 92, 184, 0.45);
-}
-
-.filter-all.active .filter-icon {
-    opacity: 1;
 }
 
 body[data-season="all"] .carousel-section {
@@ -853,8 +701,7 @@ body[data-season="all"] .carousel-section {
         font-size: 13px;
     }
 
-    .section-title,
-    .carousel-title {
+    .section-title {
         font-size: 28px;
     }
 
@@ -870,10 +717,6 @@ body[data-season="all"] .carousel-section {
     }
     .filter-btn {
         padding: 8px 14px;
-        font-size: 13px;
-    }
-    .filter-icon {
-        margin-right: 4px;
         font-size: 13px;
     }
 
@@ -1178,7 +1021,7 @@ body[data-season="all"] .carousel-section {
     inset: 0;
     background: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(6px);
-    z-index: 300;
+    z-index: 200;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.35s;
@@ -1198,7 +1041,7 @@ body[data-season="all"] .carousel-section {
     max-width: calc(100vw - 32px);
     max-height: 92vh;
     background: var(--card);
-    z-index: 301;
+    z-index: 201;
     border-radius: 22px;
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
     overflow-y: auto;
@@ -1407,7 +1250,7 @@ body[data-season="all"] .carousel-section {
     max-width: calc(100vw - 32px);
     max-height: 85vh;
     background: var(--card);
-    z-index: 400;
+    z-index: 300;
     border-radius: 22px;
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
     display: flex;
